@@ -61,15 +61,16 @@ public class NPC_Enemy : MonoBehaviour {
 		npcAnimator.SetFloat (hashSpeed, navMeshAgent.velocity.magnitude);
 	}
 	public void SetState(NPC_EnemyState newState){
+		// Forcing idle state
 		if (currentState != newState) {
 			if(_endState!=null)
 				_endState();
 			switch(newState){
 				case NPC_EnemyState.IDLE_STATIC:  _initState=StateInit_IdleStatic; 	_updateState=StateUpdate_IdleStatic; 	_endState=StateEnd_IdleStatic; 	break;				
-				case NPC_EnemyState.IDLE_ROAMER:  _initState=StateInit_IdleRoamer; 	_updateState=StateUpdate_IdleRoamer; 	_endState=StateEnd_IdleRoamer; 	break;			
-				case NPC_EnemyState.IDLE_PATROL:  _initState=StateInit_IdlePatrol; 	_updateState=StateUpdate_IdlePatrol; 	_endState=StateEnd_IdlePatrol; 	break;			
-				case NPC_EnemyState.INSPECT:  _initState=StateInit_Inspect; 	_updateState=StateUpdate_Inspect; 	_endState=StateEnd_Inspect; 	break;			
-				case NPC_EnemyState.ATTACK:  _initState=StateInit_Attack; 	_updateState=StateUpdate_Attack; 	_endState=StateEnd_Attack; 	break;			
+				//case NPC_EnemyState.IDLE_ROAMER:  _initState=StateInit_IdleRoamer; 	_updateState=StateUpdate_IdleRoamer; 	_endState=StateEnd_IdleRoamer; 	break;			
+				//case NPC_EnemyState.IDLE_PATROL:  _initState=StateInit_IdlePatrol; 	_updateState=StateUpdate_IdlePatrol; 	_endState=StateEnd_IdlePatrol; 	break;			
+				//case NPC_EnemyState.INSPECT:  _initState=StateInit_Inspect; 	_updateState=StateUpdate_Inspect; 	_endState=StateEnd_Inspect; 	break;			
+				//case NPC_EnemyState.ATTACK:  _initState=StateInit_Attack; 	_updateState=StateUpdate_Attack; 	_endState=StateEnd_Attack; 	break;			
 			}
 			_initState();			
 			currentState=newState;					
@@ -84,22 +85,24 @@ public class NPC_Enemy : MonoBehaviour {
 
 
 	void StateInit_IdleStatic(){	
-		navMeshAgent.SetDestination (startingPos);
+		//navMeshAgent.SetDestination (startingPos);
 		navMeshAgent.Resume ();
 	}
 	void StateUpdate_IdleStatic(){	
 		//float inputHorizontal = Input.GetAxis ("Horizontal");
 		//float inputVertical = Input.GetAxis ("Vertical");
-		//Debug.Log(inputHorizontal);
-		//Debug.Log(inputVertical);
-		//if (Input.GetKeyDown(KeyCode.L)) {inputHorizontal=1;}
-		//if (Input.GetKeyDown(KeyCode.J)) {inputHorizontal=-1;}
-		//if (Input.GetKeyDown(KeyCode.K)) {inputVertical=-1;}
-		//if (Input.GetKeyDown(KeyCode.I)) {inputVertical=1;}
-		////	float speedY = inputVertical > 0.1 ? Mathf.Clamp ((inputVertical * moveSpeed), moveSpeed / 2.0f, moveSpeed) : 0.0f;
-		////float speedX = inputHorizontal > 0.1 ? Mathf.Clamp ((inputHorizontal * moveSpeed), moveSpeed / 2.0f, moveSpeed) : 0.0f;
-		//Vector3 newVelocity=new Vector3(inputVertical*0.05f, 0.0f, inputHorizontal*-0.05f);
-		//navMeshAgent.Move(newVelocity);
+		float inputHorizontal = 0.0f;
+		float inputVertical = 0.0f;
+
+		if (Input.GetKey(KeyCode.L)) {inputHorizontal=1;}
+		if (Input.GetKey(KeyCode.J)) {inputHorizontal=-1;}
+		if (Input.GetKey(KeyCode.K)) {inputVertical=-1;}
+		if (Input.GetKey(KeyCode.I)) {inputVertical=1;}
+
+		//	float speedY = inputVertical > 0.1 ? Mathf.Clamp ((inputVertical * moveSpeed), moveSpeed / 2.0f, moveSpeed) : 0.0f;
+		//float speedX = inputHorizontal > 0.1 ? Mathf.Clamp ((inputHorizontal * moveSpeed), moveSpeed / 2.0f, moveSpeed) : 0.0f;
+		Vector3 newVelocity=new Vector3(inputVertical*0.01f, 0.0f, inputHorizontal*-0.01f);
+		navMeshAgent.Move(newVelocity);
 	}
 	void StateEnd_IdleStatic()
 	{
