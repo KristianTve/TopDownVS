@@ -21,7 +21,7 @@ public class PlayerBehavior : MonoBehaviour {
 		hashSpeed = Animator.StringToHash ("Speed");
 		attackTimer.StartTimer (0.1f);
 
-	//	Cursor.visible = false;
+	//	Cursor.visible = false;.
 	}
 	
 	// Update is called once per frame
