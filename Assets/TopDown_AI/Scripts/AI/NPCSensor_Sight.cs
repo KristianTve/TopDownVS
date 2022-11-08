@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using TopDown_AI.Scripts;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class NPCSensor_Sight : NPCSensor_Base {
 	const float SIGHT_DIRECT_ANGLE =120.0f,SIGHT_MIN_DISTANCE=0.2f,SIGHT_MAX_DISTANCE=20.0f;//,SIGHT_INDIRECT_ANGLE = 80,SIGHT_INDIRECT_DISTANCE=20.0f;
@@ -17,6 +22,9 @@ public class NPCSensor_Sight : NPCSensor_Base {
 	float lastSightTime=float.MinValue;
 	float SIGHT_DELAY_TIME=0.1f; //Time a object has to stay in sight to catch our attention
 	public Color idleColor, alertedColor, attackColor;
+	
+	
+	
 	//TODO ADD the visual thingy
 	protected override void StartSensor(){
 		//InitFoV ();
@@ -29,9 +37,10 @@ public class NPCSensor_Sight : NPCSensor_Base {
 	bool targetSpotted=false;
 	void GetTargetInSight(){
 		Collider[] overlapedObjects= Physics.OverlapSphere (transform.position, SIGHT_MAX_DISTANCE);
-	
 
-
+		Vector3 nearestBullet = default;	// Vector to the nearest bullet
+	    Vector3 distanceVector = default;	// Distance to the bullet
+		float nearestBulletDist = 0; // Distance to the nearest bullet
 	
 		for (int i=0; i<overlapedObjects.Length; i++) {
 			Vector3 direction = overlapedObjects [i].transform.position - transform.position;
@@ -92,9 +101,28 @@ public class NPCSensor_Sight : NPCSensor_Base {
 				
 				// Testing out the recognition of player bullets
 				if (overlapedObjects[i].tag == "PlayerBullet")
-					Debug.Log(overlapedObjects[i].transform.position);
+				{
+					distanceVector = overlapedObjects[i].transform.InverseTransformPoint(transform.position);
+					Debug.Log(distanceVector);
+					float total = Mathf.Abs(distanceVector.x) + Mathf.Abs(distanceVector.y) + Mathf.Abs(distanceVector.z);
+					if (total > nearestBulletDist)
+					{
+						nearestBulletDist = total;
+						nearestBullet = overlapedObjects[i].transform.position;
+					}
+				}
 			}			
 		}
+		// After nearest bullet has been selected, save the vector in the game state
+
+		if (nearestBullet != default)
+			gameState.closestBulletPos = nearestBullet;
+		else
+			gameState.closestBulletPos = default;
+		
+		if (gameState.closestBulletPos != Vector3.zero)
+			Debug.Log(gameState.closestBulletPos);
+		
 		if (alerted && lastAlertTime + ALERTED_COOLDOWN < Time.time) {
 			material.SetColor ("_Color", Color.green);
 			alerted=false;

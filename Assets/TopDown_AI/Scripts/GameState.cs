@@ -7,7 +7,7 @@ namespace TopDown_AI.Scripts
         public Vector3 playerRelativePos;
         public Vector3 playerPos;
 
-        public Vector3 bulletPos;
+        public Vector3 closestBulletPos;
         
         public bool playerVisible;
     }
