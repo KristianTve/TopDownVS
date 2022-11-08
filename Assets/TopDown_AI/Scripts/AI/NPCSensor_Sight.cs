@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TopDown_AI.Scripts;
+
 public class NPCSensor_Sight : NPCSensor_Base {
 	const float SIGHT_DIRECT_ANGLE =120.0f,SIGHT_MIN_DISTANCE=0.2f,SIGHT_MAX_DISTANCE=20.0f;//,SIGHT_INDIRECT_ANGLE = 80,SIGHT_INDIRECT_DISTANCE=20.0f;
 	float height=2.0f;
 	public LayerMask hitTestMask;
+	public GameState gameState;			// For saving the gamestate
 	Color fovColor;
 	float TARGET_LOST_COOLDOWN=1.0f,ALERTED_COOLDOWN=10.0f,lastTargetTime=float.MinValue,lastAlertTime=float.MinValue;
 	Vector3 _lastTargetPos;
@@ -34,6 +38,13 @@ public class NPCSensor_Sight : NPCSensor_Base {
 			float objAngle = Vector3.Angle (direction, transform.forward);
 			if (overlapedObjects [i].tag == "Player") { 
 				if ( objAngle < SIGHT_DIRECT_ANGLE && TargetInSight (overlapedObjects [i].transform, SIGHT_MAX_DISTANCE )) {
+					
+					//// UPDATING GAME STATE////////
+					gameState.playerPos = overlapedObjects[i].transform.position; // Player position
+					gameState.playerRelativePos =
+						overlapedObjects[i].transform.InverseTransformPoint(npcBase.transform.position); // Relative (to NPC) player position
+					//// UPDATING GAME STATE////////
+
 					npcBase.SetTargetPos(overlapedObjects [i].transform.position);
 					material.SetColor ("_Color", attackColor);	
 				}
@@ -72,9 +83,16 @@ public class NPCSensor_Sight : NPCSensor_Base {
 						
 				} */
 
-			}	else{
+			//}	else if (overlapedObjects [i].tag == "Player")
+			//{
+				
+			}else{
 				material.SetColor ("_Color", idleColor);	
 				//somethingSpotted=false;
+				
+				// Testing out the recognition of player bullets
+				if (overlapedObjects[i].tag == "PlayerBullet")
+					Debug.Log(overlapedObjects[i].transform.position);
 			}			
 		}
 		if (alerted && lastAlertTime + ALERTED_COOLDOWN < Time.time) {

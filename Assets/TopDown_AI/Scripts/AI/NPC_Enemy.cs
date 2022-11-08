@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using TopDown_AI.Scripts;
+using UnityEngine;
+
 public enum NPC_EnemyState{IDLE_STATIC,IDLE_ROAMER,IDLE_PATROL,INSPECT,ATTACK,FIND_WEAPON,KNOCKED_OUT,DEAD,NONE}
 public enum NPC_WeaponType{KNIFE,RIFLE,SHOTGUN}
 public class NPC_Enemy : MonoBehaviour {
 	public float inspectTimeout; //Once the npc reaches the destination, how much time unitl in goes back.
 	public UnityEngine.AI.NavMeshAgent navMeshAgent;
 	public Animator npcAnimator;
-	
-    public GameObject proyectilePrefab;
+	public GameObject proyectilePrefab;
 	delegate void InitState();
 	delegate void UpdateState();
 	delegate void EndState();
@@ -191,10 +191,9 @@ public class NPC_Enemy : MonoBehaviour {
 	}
 
 	void AdvanceIdle(){
-
 		RaycastHit hit = new RaycastHit ();
 		Physics.Raycast (transform.position, transform.forward*5.0f, out hit,50.0f,hitTestLayer);
-		//Debug.DrawRay (transform.position, transform.forward, Color.red);
+		Debug.DrawRay (transform.position, transform.forward, Color.red);
 
 		if (hit.distance < 3.0f) {
 			Vector3 dir =  hit.point-transform.position;
@@ -219,7 +218,6 @@ public class NPC_Enemy : MonoBehaviour {
 	}
 	void StateUpdate_Inspect(){	
 
-
 		if (HasReachedMyDestination () && !inspectWait) {
 			inspectWait=true;
 			inspectTimer.StartTimer (2.0f);
@@ -228,7 +226,7 @@ public class NPC_Enemy : MonoBehaviour {
 		navMeshAgent.SetDestination (targetPos);
 		RaycastHit hit = new RaycastHit ();
 		Physics.Raycast (transform.position,transform.forward, out hit,weaponRange,hitTestLayer);
-
+		
 		if (hit.collider != null && hit.collider.tag == "Player") {
 			SetState(NPC_EnemyState.ATTACK);
 		}
@@ -329,7 +327,8 @@ public class NPC_Enemy : MonoBehaviour {
 			SetTargetPos(newPos);
 		}
 	}
-	public void SetTargetPos(Vector3 newPos){
+	public void SetTargetPos(Vector3 newPos)
+	{
 		targetPos = newPos;
 		if (currentState != NPC_EnemyState.ATTACK ) {
 			SetState (NPC_EnemyState.INSPECT);

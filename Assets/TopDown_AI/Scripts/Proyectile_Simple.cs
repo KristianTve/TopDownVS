@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Proyectile_Simple : MonoBehaviour {
     public enum CollisionTarget {PLAYER,ENEMIES }
@@ -17,12 +18,9 @@ public class Proyectile_Simple : MonoBehaviour {
 
 
 	void Update () {
-
-		if(moving)
-		transform.Translate(transform.forward*speed,Space.World);
-
-	
-
+		if(moving) 
+			transform.Translate(transform.forward*0.3f,Space.World);
+		
 	}
 	void OnCollisionEnter(Collision collision){
 		if (collisionTarget== CollisionTarget.PLAYER  && collision.gameObject.tag == "Player") {

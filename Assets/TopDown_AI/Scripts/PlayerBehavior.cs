@@ -88,6 +88,7 @@ public class PlayerBehavior : MonoBehaviour {
 			case PlayerWeaponType.PISTOL:
 			GameCamera.ToggleShake (0.1f);
 				GameObject bullet=GameObject.Instantiate(proyectilePrefab, gunPivot.position,gunPivot.rotation) as GameObject;
+				bullet.gameObject.tag = "PlayerBullet";		// Tag the player bullets so they can be recognized
 				bullet.transform.LookAt(mousePointer.transform);
 				bullet.transform.Rotate(0,Random.Range(-7.5f,7.5f),0);
 				AlertEnemies();
