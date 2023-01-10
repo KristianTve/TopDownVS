@@ -5,14 +5,14 @@ using NumSharp;
 
 namespace TopDown_AI.Scripts
 {
-    """
+   		"""
         This class is for defining the neural networks with the TensorFlow.NET package.
         Should also include helper functions, like prediction, weight manupulation,
         (and mutation? Like select some random weight to manipulate.)
         Should have a random generate function to randomly initialize the weights
         Have a crossover function as well? Which employs a specific algorithm for combining the weights (NO)
         Or does a external function pull out the weights by a helper function here and combine them? I think so!
-    """
+    	"""
     public class Individual
     {
         // Class contained data:
