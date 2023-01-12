@@ -9,7 +9,7 @@ namespace TopDown_AI.Scripts
     // https://www.researchgate.net/figure/Pseudocode-of-the-standard-genetic-algorithm-GA_fig2_3418804
     public class Main
     {
-        GA(s)
+        void GA(string s)
         {
             // Set generation to 0
             //Initialize population to random individuals from S*
@@ -18,22 +18,22 @@ namespace TopDown_AI.Scripts
             // While termination condition is not met:
             while (true)
             {
-                System.console
+                System.console;   
                 // Select fittest individuals from Pt
-                
+
                 // Recombine individuals
-                
+
                 // Mutate individuals
-                
+
                 // EVALUATE FITNESS
-                
+
                 // Set next population as newly created individuals
-                
+
                 // Increment generation count
             } 
         }
 
-        fitnessEvaluator()
+        void fitnessEvaluator()
         {
             
         }
