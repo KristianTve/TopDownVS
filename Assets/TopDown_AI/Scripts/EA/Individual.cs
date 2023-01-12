@@ -16,7 +16,7 @@ namespace TopDown_AI.Scripts
     public class Individual
     {
         // Class contained data:
-        private keras.Sequential sike;
+        //private keras.Sequential sike;
         
         static int initializeNetwork()
         {
@@ -24,17 +24,17 @@ namespace TopDown_AI.Scripts
             var inputs = keras.Input(shape: (4), name: "state");
 
             // convolutional layer
-            var x = layers.Dense(32, activation: "relu").Apply(inputs);
-            x = layers.Dense(10, activation: "relu").Apply(x);
-            x = layers.Dropout(0.5f).Apply(x);
+            var x = keras.layers.Dense(32, activation: "relu").Apply(inputs);
+            x = keras.layers.Dense(10, activation: "relu").Apply(x);
+            x = keras.layers.Dropout(0.5f).Apply(x);
 
             // output layer
-            var outputs = layers.Dense(2).Apply(x);
+            var outputs = keras.layers.Dense(2).Apply(x);
 
             // build keras model
-            model = keras.Model(inputs, outputs, name: "individualNet");
+            var model = keras.Model(inputs, outputs, name: "individualNet");
             model.summary();
-            sike = model;
+            //sike = model;
             
             // compile keras model in tensorflow static graph IS THIS NEEDED?? Dont believe so.
             model.compile(optimizer: keras.optimizers.RMSprop(1e-3f),

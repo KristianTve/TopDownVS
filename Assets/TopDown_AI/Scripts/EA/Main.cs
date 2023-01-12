@@ -18,7 +18,6 @@ namespace TopDown_AI.Scripts
             // While termination condition is not met:
             while (true)
             {
-                System.console;   
                 // Select fittest individuals from Pt
 
                 // Recombine individuals
