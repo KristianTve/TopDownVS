@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: d4ed33cc66f093e4eb580f89ac1d0d7b
-timeCreated: 1433762440
-licenseType: Store
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scoreText: {instanceID: 0}
+  - scoreTextBG: {instanceID: 0}
+  - restartMessage: {instanceID: 0}
+  - knifeSelector: {instanceID: 0}
+  - gunSelector: {instanceID: 0}
+  - endSection: {instanceID: 0}
+  - heart1: {instanceID: 0}
+  - heart2: {instanceID: 0}
+  - heart3: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -351,6 +351,7 @@
 "Assets/TopDown_AI/Scripts/AI/NPC_Enemy.cs"
 "Assets/TopDown_AI/Scripts/AI/NPC_PatrolNode.cs"
 "Assets/TopDown_AI/Scripts/Anims/Anim_ColorTo.cs"
+"Assets/TopDown_AI/Scripts/Anims/Anim_Health.cs"
 "Assets/TopDown_AI/Scripts/Anims/Anim_Levitate.cs"
 "Assets/TopDown_AI/Scripts/Anims/Anim_Rotate.cs"
 "Assets/TopDown_AI/Scripts/Anims/Anim_RotateLoop.cs"

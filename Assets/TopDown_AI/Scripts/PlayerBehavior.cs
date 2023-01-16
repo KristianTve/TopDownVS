@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 public enum PlayerWeaponType{KNIFE,PISTOL,NULL}
 public class PlayerBehavior : MonoBehaviour {
 	Rigidbody myRigidBody;
@@ -57,21 +58,25 @@ public class PlayerBehavior : MonoBehaviour {
 		attackTimer.UpdateTimer ();
 		UpdateAim ();
 	}
-	public void DamagePlayer(){
+	public void DamagePlayer()
+	{
+		GameManager.playerHealth -= 1;
+		GameManager.PlayerHealthHandler();
+	}
+	public void PlayerDeath()
+	{
+		Debug.Log("I am ded");
 		animator.SetBool ("Dead", true);
 		animator.transform.parent = null;
-		this.enabled = false;
-		myRigidBody.isKinematic = true;
-		GameManager.RegisterPlayerDeath ();
 		gameObject.GetComponent<Collider> ().enabled = false;
 		GameCamera.ToggleShake (0.3f);
+		this.enabled = false;
+		myRigidBody.isKinematic = true;
 		Vector3 pos = animator.transform.position;
 		pos.y = 0.2f;
 		animator.transform.position = pos;
 	}
 	void UpdateAim(){
-
-
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		mousePos.y = transform.position.y;
 		mousePointer.transform.position = mousePos;
@@ -90,7 +95,7 @@ public class PlayerBehavior : MonoBehaviour {
 				GameObject bullet=GameObject.Instantiate(proyectilePrefab, gunPivot.position,gunPivot.rotation) as GameObject;
 				bullet.gameObject.tag = "PlayerBullet";		// Tag the player bullets so they can be recognized
 				bullet.transform.LookAt(mousePointer.transform);
-				bullet.transform.Rotate(0,Random.Range(-2.5f,2.5f),0); // Amount of bullet spread
+				bullet.transform.Rotate(0,UnityEngine.Random.Range(-2.5f,2.5f),0); // Amount of bullet spread
 				AlertEnemies();
 			break;
 		}

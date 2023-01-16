@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/TopDown_AI/Main.unity
+- path: Assets/TopDown_AI/Scenes/SimpleScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
