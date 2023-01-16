@@ -90,7 +90,7 @@ public class PlayerBehavior : MonoBehaviour {
 				GameObject bullet=GameObject.Instantiate(proyectilePrefab, gunPivot.position,gunPivot.rotation) as GameObject;
 				bullet.gameObject.tag = "PlayerBullet";		// Tag the player bullets so they can be recognized
 				bullet.transform.LookAt(mousePointer.transform);
-				bullet.transform.Rotate(0,Random.Range(-7.5f,7.5f),0);
+				bullet.transform.Rotate(0,Random.Range(-2.5f,2.5f),0); // Amount of bullet spread
 				AlertEnemies();
 			break;
 		}
@@ -109,9 +109,7 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 	public void DoHitTest(){
-
-
-
+		
 
 		RaycastHit[] hits=Physics.SphereCastAll (hitTestPivot.position,2.0f, hitTestPivot.up);
 		foreach(RaycastHit hit in hits){

@@ -1,14 +1,16 @@
-using static Tensorflow.Binding;
+/*using static Tensorflow.Binding;
 using static Tensorflow.KerasApi;
 using Tensorflow;
 using NumSharp;
 using System;
+*/
 
 namespace TopDown_AI.Scripts
 {
     // https://www.researchgate.net/figure/Pseudocode-of-the-standard-genetic-algorithm-GA_fig2_3418804
     public class Main
     {
+        /*
         GA(s)
         {
             // Set generation to 0
@@ -37,5 +39,6 @@ namespace TopDown_AI.Scripts
         {
             
         }
+        */
     }
 }
