@@ -34,8 +34,6 @@ public class Proyectile_Simple : MonoBehaviour {
             DestroyProyectile();
         }
         
-
-
     }
 	void DestroyProyectile(){
 	

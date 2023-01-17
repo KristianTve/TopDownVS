@@ -65,7 +65,6 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	public void PlayerDeath()
 	{
-		Debug.Log("I am ded");
 		animator.SetBool ("Dead", true);
 		animator.transform.parent = null;
 		gameObject.GetComponent<Collider> ().enabled = false;
